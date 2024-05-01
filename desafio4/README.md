@@ -1,0 +1,1 @@
+# Todas las pruebas fueron realizadas con "npm start"
