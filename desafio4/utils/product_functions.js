@@ -97,7 +97,7 @@ export class ProductManager {
                 category,
             }
 
-            if (!title || !description || !price || !thumbnail || !code || !stock || !status || !category) {
+            if (!title || !description || !price || !thumbnail || !code || !stock || !category) {
                 console.log("Debes llenar todos los campos para agregar un producto.");
                 return;
             }
