@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/chat.js" defer></script>
+</head>
+<body>
+    <div id="login" class="chat-login">
+        <input type="text" id="nickname" placeholder="Ingresa un Nickname">
+        <button onclick="joinChat()">Entrar al Chat</button>
+    </div>
+    <div id="chatRoom" class="chat-container" style="display:none;">
+        <h1>Chat de Fede</h1>
+        <div id="messages" class="chat-messages"></div>
+        <textarea id="message" class="chat-input" placeholder="Escribe tu mensaje..."></textarea>
+        <button onclick="sendMessage()" class="chat-send">Enviar</button>
+    </div>
+</body>
+</html>
