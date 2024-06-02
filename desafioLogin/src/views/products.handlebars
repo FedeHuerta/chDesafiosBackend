@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Productos</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <div class="container">
+        {{#if user}}
+        <div class="welcome">
+            <p>Bienvenido, {{user.first_name}} | <a href="/profile">Mi perfil</a></p>
+        </div>
+        {{/if}}
+        <h1>Productos</h1>
+        <div class="products-container">
+            {{#each products.docs}}
+            <div class="product-item">
+                <img src="{{this.thumbnail}}" alt="{{this.title}}">
+                <h2>{{this.title}}</h2>
+                <p>{{this.price}} USD</p>
+                <button onclick="location.href='/products/{{this._id}}'">Ver detalles</button>
+                <button onclick="addToCart('{{this._id}}')">Agregar al carrito</button>
+            </div>
+            {{/each}}
+        </div>
+        <div class="pagination">
+            {{#if products.hasPrevPage}}
+            <button onclick="location.href='/products?page={{products.prevPage}}'">Anterior</button>
+            {{/if}}
+            {{#if products.hasNextPage}}
+            <button onclick="location.href='/products?page={{products.nextPage}}'">Siguiente</button>
+            {{/if}}
+        </div>
+    </div>
+    <script>
+        const currentCartId = '{{currentCartId}}';
+        function addToCart(productId) {
+            fetch(`/api/carts/${currentCartId}/product/${productId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ quantity: 1 })
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error al agregar el producto al carrito');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    alert(`Producto agregado al carrito ${currentCartId}`);
+                })
+                .catch(error => {
+                    alert(error.message);
+                });
+        }
+    </script>
+</body>
+
+</html>
