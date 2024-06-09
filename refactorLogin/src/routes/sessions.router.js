@@ -21,6 +21,7 @@ router.post('/login', passport.authenticate('login', { failureRedirect: 'faillog
             last_name: req.user.last_name,
             email: req.user.email,
             age: req.user.age,
+            role: req.user.role
         };
         console.log(req.session.user)
         res.redirect('/profile');
@@ -31,7 +32,7 @@ router.post('/login', passport.authenticate('login', { failureRedirect: 'faillog
 });
 
 router.get('/faillogin', (req, res) => {
-    res.send({ error: "Login fallido" })
+    res.status(404).send('Usuario o contraseña incorrectos');
 })
 
 router.post('/logout', (req, res) => {

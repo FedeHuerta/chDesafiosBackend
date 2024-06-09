@@ -22,7 +22,8 @@ const initializePassport = () => {
                     last_name,
                     email,
                     age,
-                    password: createHash(password)
+                    password: createHash(password),
+                    role: "user"
                 }
                 let result = await userService.create(newUser)
                 return done(null, result)
@@ -73,7 +74,8 @@ const initializePassport = () => {
                     last_name: "",
                     age: 20,
                     email: profile._json.email,
-                    password: ""
+                    password: "",
+                    role: "user"
                 }
                 let result = await userService.create(newUser)
                 done(null, result)
