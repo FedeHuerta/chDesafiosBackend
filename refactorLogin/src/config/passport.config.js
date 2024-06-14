@@ -67,6 +67,9 @@ const initializePassport = () => {
         callbackURL: "http://localhost:8080/api/sessions/githubcallback"
     }, async (accessToken, refreshToken, profile, done) => {
         try {
+            if (!profile._json.email) {
+                return done(null, false, { message: "El correo electrónico es nulo. Por favor, haz tu email público en GitHub o utiliza otra forma de autenticación." });
+            }
             let user = await userService.findOne({ email: profile._json.email })
             if (!user) {
                 let newUser = {

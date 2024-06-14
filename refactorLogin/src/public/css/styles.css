@@ -219,3 +219,14 @@ button:hover {
     text-align: center;
     margin-top: 20px;
 }
+
+.error-message {
+    background-color: rgba(255, 182, 193, 0.8);
+    border: 1px solid rgba(255, 105, 97, 0.8);
+    border-radius: 10px;
+    padding: 10px 15px;
+    color: #b22222;
+    font-size: 14px;
+    margin: 10px 0;
+    text-align: center;
+}

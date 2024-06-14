@@ -46,10 +46,23 @@ router.post('/logout', (req, res) => {
 router.get("/github", passport.authenticate("github", { scope: ["user:email"] }), async (req, res) => { })
 
 
-router.get("/githubcallback", passport.authenticate("github", { failureRedirect: "/login" }), async (req, res) => {
-    req.session.user = req.user
-    res.redirect("/products")
-})
+router.get("/githubcallback", (req, res, next) => {
+    passport.authenticate("github", (err, user, info) => {
+        if (err) {
+            return next(err);
+        }
+        if (!user) {
+            return res.redirect(`/login?error=${encodeURIComponent(info.message)}`);
+        }
+        req.logIn(user, (err) => {
+            if (err) {
+                return next(err);
+            }
+            req.session.user = user;
+            return res.redirect("/products");
+        });
+    })(req, res, next);
+});
 
 
 export default router;

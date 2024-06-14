@@ -98,7 +98,8 @@ router.get('/carts/:cid', async (req, res) => {
 });
 
 router.get('/login', isNotAuthenticated, (req, res) => {
-    res.render('login');
+    const error = req.query.error;
+    res.render('login', { error });
 });
 
 router.get('/register', isNotAuthenticated, (req, res) => {
